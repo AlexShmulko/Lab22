@@ -1,0 +1,30 @@
+name: Build Lab2 nginx
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: Lab2Shmulko
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout rep
+        uses: actions/checkout@v4
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Check docker-compose.yml
+        run: docker-compose config
+
+      - name: Bulding Docker-образов
+        run: docker-compose build
